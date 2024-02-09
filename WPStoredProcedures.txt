@@ -1,0 +1,37 @@
+CREATE PROCEDURE VisualizzaContravvenzioniPerAnno
+    @Anno INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    SELECT ANAGRAFICA.Cognome, ANAGRAFICA.Nome, VERBALE.DataViolazione, VERBALE.IndirizzoViolazione, VERBALE.Importo, VERBALE.DecurtamentoPunti
+    FROM ANAGRAFICA
+    JOIN VERBALE ON ANAGRAFICA.idanagrafica = VERBALE.idanagrafica
+    WHERE YEAR(VERBALE.DataViolazione) = @Anno;
+END;
+
+
+
+
+CREATE PROCEDURE VisualizzaTotalePuntiDecurtatiPerData
+    @Data DATE
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    SELECT SUM(DecurtamentoPunti) AS Totale_Punti_Decurtati
+    FROM VERBALE
+    WHERE DataViolazione = @Data;
+END;
+
+
+
+CREATE PROCEDURE EliminaVerbalePerIdAgente
+    @IdAgente INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    DELETE FROM VERBALE
+    WHERE idanagrafica IN (SELECT idanagrafica FROM ANAGRAFICA WHERE idanagrafica = @IdAgente);
+END;

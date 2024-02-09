@@ -1,0 +1,53 @@
+1) SELECT COUNT(*) AS Numero_Verbali_Trascritti
+FROM VERBALE;
+
+2) SELECT idanagrafica, COUNT(*) AS Numero_Verbali
+FROM VERBALE
+GROUP BY idanagrafica;
+
+3) SELECT idviolazione, COUNT(*) AS Numero_Verbali
+FROM VERBALE
+GROUP BY idviolazione;
+
+4) SELECT idanagrafica, SUM(DecurtamentoPunti) AS Totale_Punti_Decurtati
+FROM VERBALE
+GROUP BY idanagrafica;
+
+5) SELECT ANAGRAFICA.Cognome, ANAGRAFICA.Nome, VERBALE.DataViolazione, VERBALE.IndirizzoViolazione, VERBALE.Importo, VERBALE.DecurtamentoPunti
+FROM ANAGRAFICA
+JOIN VERBALE ON ANAGRAFICA.idanagrafica = VERBALE.idanagrafica
+WHERE ANAGRAFICA.Città = 'Palermo';
+
+6) SELECT ANAGRAFICA.Cognome, ANAGRAFICA.Nome, VERBALE.IndirizzoViolazione, VERBALE.DataViolazione, VERBALE.Importo, VERBALE.DecurtamentoPunti
+FROM ANAGRAFICA
+JOIN VERBALE ON ANAGRAFICA.idanagrafica = VERBALE.idanagrafica
+WHERE VERBALE.DataViolazione BETWEEN '2009-02-01' AND '2009-07-31';
+
+7) SELECT idanagrafica, SUM(Importo) AS Totale_Importi
+FROM VERBALE
+GROUP BY idanagrafica;
+
+8) SELECT *
+FROM ANAGRAFICA
+WHERE Città = 'Palermo';
+
+9) DECLARE @DataViolazione DATE = '2023-01-05';
+SELECT DataViolazione, Importo, DecurtamentoPunti
+FROM VERBALE
+WHERE DataViolazione = @DataViolazione;
+
+10) SELECT Nominativo_Agente, COUNT(*) AS Numero_Violazioni
+FROM VERBALE
+GROUP BY Nominativo_Agente;
+
+11) SELECT ANAGRAFICA.Cognome, ANAGRAFICA.Nome, VERBALE.IndirizzoViolazione, VERBALE.DataViolazione, VERBALE.Importo, VERBALE.DecurtamentoPunti
+FROM ANAGRAFICA
+JOIN VERBALE ON ANAGRAFICA.idanagrafica = VERBALE.idanagrafica
+WHERE VERBALE.DecurtamentoPunti > 5;
+
+12) SELECT ANAGRAFICA.Cognome, ANAGRAFICA.Nome, VERBALE.IndirizzoViolazione, VERBALE.DataViolazione, VERBALE.Importo, VERBALE.DecurtamentoPunti
+FROM ANAGRAFICA
+JOIN VERBALE ON ANAGRAFICA.idanagrafica = VERBALE.idanagrafica
+WHERE VERBALE.Importo > 400;
+
+
